@@ -7,7 +7,7 @@ How to use it
 
 **Adding to Rails 3.x**
 
-> # config/application.rb
+> \# config/application.rb
 >
 > class Application < Rails::Application
 >
