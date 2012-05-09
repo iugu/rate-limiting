@@ -53,7 +53,6 @@ class RateLimiting
     @rules = []
     @cache = {}
     block.call(self)
-    $rate_teste = self
   end
 
   def call(env)
