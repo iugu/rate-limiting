@@ -9,15 +9,15 @@ How to use it
 
 > \# config/application.rb
 >
-> class Application < Rails::Application
+>     class Application < Rails::Application
 >
->   config.middleware.use RateLimiting do |r|
+>       config.middleware.use RateLimiting do |r|
 >
->     r.define_rule( :match => '/resource', :type => :fixed, :metric => :rph, :limit => 300 )
+>         r.define_rule( :match => '/resource', :type => :fixed, :metric => :rph, :limit => 300 )
 >
->   end
+>       end
 >
-> end
+>     end
 
 Rule Options
 ----------------
