@@ -13,8 +13,8 @@ describe "Any request" do
 
   it 'should receive allowed' do
     app.should_receive(:allowed?).twice
-    get '/test'
-    get '/test2'
+    get '/test', {}, {'HTTP_ACCEPT' => "text/html"}
+    get '/test2', {}, {'HTTP_ACCEPT' => "text/html"}
   end 
 
 end

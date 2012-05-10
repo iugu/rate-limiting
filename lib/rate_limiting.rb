@@ -1,3 +1,4 @@
+require "json"
 class RateLimiting
 
   class Rule
@@ -57,11 +58,18 @@ class RateLimiting
 
   def call(env)
     request = Rack::Request.new(env)
+    @accept = env['HTTP_ACCEPT'].gsub(/;.*/, "").split(',')
     allowed?(request) ? @app.call(env) : rate_limit_exceeded
   end
 
   def rate_limit_exceeded
-    [403, {"Content-Type" => "text/html"}, ["Rate Limiting Exceeded"]]
+    case @accept[0]
+    when "text/xml"         then message, type  = ["Rate Limiting Exceeded"].to_xml, "text/xml" 
+    when "application/json" then  message, type  = ["Rate Limiting Exceeded"].to_json, "application/json"
+    else 
+      message, type  = ["Rate Limiting Exceeded"].to_json, "application/json"
+    end
+    [403, {"Content-Type" => type}, message]
   end
 
   def define_rule(options)

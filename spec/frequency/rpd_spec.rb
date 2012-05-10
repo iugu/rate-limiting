@@ -11,12 +11,12 @@ describe "Frequency/rpd rule request" do
   include Rack::Test::Methods
 
   it 'should be allowed if not exceed 1 request per min' do
-    get '/test'
+    get '/test', {}, {'HTTP_ACCEPT' => "text/html"}
     last_response.body.should show_allowed_response
   end 
 
   it 'should not be allowed if exceed 1 request per min' do
-    2.times { get '/test'}
+    2.times { get '/test', {}, {'HTTP_ACCEPT' => "text/html"} }
     last_response.body.should show_not_allowed_response
   end 
   
