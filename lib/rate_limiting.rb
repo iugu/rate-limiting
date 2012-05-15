@@ -89,7 +89,7 @@ class RateLimiting
   end
 
   def apply_rule(request, rule)
-    key = rule.match.to_s + request.ip.to_s
+    key = rule.get_key(request)
     if cache_has?(key)
       record = cache_get(key)
       if record.split(':')[1] > Time.now.strftime("%d%m%y%H%M%S")

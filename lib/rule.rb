@@ -5,7 +5,8 @@ class Rule
       :match => /.*/,
       :metric => :rph,
       :type => :frequency,
-      :limit => 100 
+      :limit => 100,
+      :token => :ip
     }   
     @options = default_options.merge(options)
   
@@ -42,6 +43,14 @@ class Rule
       return 3600
     when :rpm
       return 60
+    end
+  end
+
+  def get_key(request)
+    if @options[:token] == :ip
+      return match.to_s + request.ip.to_s
+    else
+      return match.to_s + request.params[@options[:token].to_s]
     end
   end
 end

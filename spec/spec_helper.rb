@@ -8,6 +8,22 @@ def test_app
   @test_app
 end
 
+def app
+  @test_app ||= test_app
+  @app ||= RateLimiting.new(@test_app) do |r| 
+    r.define_rule(:match => '/html', :limit => 1)  
+    r.define_rule(:match => '/json', :metric => :rph, :type => :frequency, :limit => 60)
+    r.define_rule(:match => '/xml', :metric => :rph, :type => :frequency, :limit => 60)
+    r.define_rule(:match => '/token', :limit => 1, :token => :id)
+    r.define_rule(:match => '/fixed/rpm', :metric => :rpm, :type => :fixed, :limit => 1)
+    r.define_rule(:match => '/fixed/rph', :metric => :rph, :type => :fixed, :limit => 1)
+    r.define_rule(:match => '/fixed/rpd', :metric => :rpd, :type => :fixed, :limit => 1)
+    r.define_rule(:match => '/freq/rpm', :metric => :rpm, :type => :frequency, :limit => 1)
+    r.define_rule(:match => '/freq/rph', :metric => :rph, :type => :frequency, :limit => 60)
+    r.define_rule(:match => '/freq/rpd', :metric => :rpd, :type => :frequency, :limit => 1440)
+  end 
+end
+
 Spec::Matchers.define :show_allowed_response do
   match do |body|
     body.include?("Test App Body")
