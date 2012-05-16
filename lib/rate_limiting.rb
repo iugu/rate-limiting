@@ -18,10 +18,10 @@ class RateLimiting
 
   def rate_limit_exceeded
     case @accept[0]
-    when "text/xml"         then message, type  = xml_error("403", "Rate Limiting Exceeded"), "text/xml" 
-    when "application/json" then  message, type  = ["Rate Limiting Exceeded"].to_json, "application/json"
+    when "text/xml"         then message, type  = xml_error("403", "Rate Limit Exceeded"), "text/xml" 
+    when "application/json" then  message, type  = ["Rate Limit Exceeded"].to_json, "application/json"
     else 
-      message, type  = ["Rate Limiting Exceeded"], "text/html"
+      message, type  = ["Rate Limit Exceeded"], "text/html"
     end
     [403, {"Content-Type" => type}, message]
   end
