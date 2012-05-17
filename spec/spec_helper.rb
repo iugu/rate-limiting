@@ -44,7 +44,7 @@ end
 
 Spec::Matchers.define :show_not_allowed_response do
   match do |body|
-    body.include?("Rate Limiting Exceeded")
+    body.include?("Rate Limit Exceeded")
   end
 
   failure_message_for_should do
