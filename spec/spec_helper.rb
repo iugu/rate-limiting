@@ -21,6 +21,7 @@ def app
     r.define_rule(:match => '/freq/rpm', :metric => :rpm, :type => :frequency, :limit => 1)
     r.define_rule(:match => '/freq/rph', :metric => :rph, :type => :frequency, :limit => 60)
     r.define_rule(:match => '/freq/rpd', :metric => :rpd, :type => :frequency, :limit => 1440)
+    r.define_rule(:match => '/header', :metric => :rph, :type => :frequency, :limit => 60)
   end 
 end
 

@@ -12,12 +12,16 @@ class RateLimiting
 
   def call(env)
     request = Rack::Request.new(env)
-    @accept = env['HTTP_ACCEPT'].gsub(/;.*/, "").split(',')
-    allowed?(request) ? @app.call(env) : rate_limit_exceeded
+    (limit_header = allowed?(request)) ? respond(env, limit_header) : rate_limit_exceeded(env['HTTP_ACCEPT'])
   end
 
-  def rate_limit_exceeded
-    case @accept[0]
+  def respond(env, limit_header)
+    status, header, response = @app.call(env)
+    (limit_header.class == Hash) ? [status, header.merge(limit_header), response] : [status, header, response]
+  end
+
+  def rate_limit_exceeded(accept)
+    case accept.gsub(/;.*/, "").split(',')[0]
     when "text/xml"         then message, type  = xml_error("403", "Rate Limit Exceeded"), "text/xml" 
     when "application/json" then  message, type  = ["Rate Limit Exceeded"].to_json, "application/json"
     else 
@@ -92,19 +96,26 @@ class RateLimiting
     key = rule.get_key(request)
     if cache_has?(key)
       record = cache_get(key)
-      if record.split(':')[1] > Time.now.strftime("%d%m%y%H%M%S")
-        if record.split(':')[0].to_i < rule.limit
-          record = record.gsub(/.*:/, "#{record.split(':')[0].to_i + 1}:")
+      if (reset = record.split(':')[1]) > Time.now.strftime("%d%m%y%H%M%S")
+        if (times = record.split(':')[0].to_i) < rule.limit
+          response = get_header(times + 1, reset, rule.limit)
+          record = record.gsub(/.*:/, "#{times + 1}:")
         else
           return false
         end
       else
+        response = get_header(1, reset = rule.get_expiration, rule.limit)
         cache_set(key, "1:" + rule.get_expiration)
       end
     else
+      response = get_header(1, reset = rule.get_expiration, rule.limit)
       cache_set(key, "1:" + rule.get_expiration)
     end
-    true
+    response
+  end
+
+  def get_header(times, reset, limit)
+    {'x-RateLimit-Limit' => limit, 'x-RateLimit-Remaining' => limit - times, 'x-RateLimit-Reset' => reset }
   end
 
   def xml_error(code, message)
