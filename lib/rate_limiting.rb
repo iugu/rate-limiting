@@ -115,7 +115,7 @@ class RateLimiting
   end
 
   def get_header(times, reset, limit)
-    {'x-RateLimit-Limit' => limit, 'x-RateLimit-Remaining' => limit - times, 'x-RateLimit-Reset' => reset }
+    {'x-RateLimit-Limit' => limit.to_s, 'x-RateLimit-Remaining' => (limit - times).to_s, 'x-RateLimit-Reset' => reset.to_s }
   end
 
   def xml_error(code, message)
