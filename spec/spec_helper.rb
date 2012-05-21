@@ -14,7 +14,7 @@ def app
     r.define_rule(:match => '/html', :limit => 1)  
     r.define_rule(:match => '/json', :metric => :rph, :type => :frequency, :limit => 60)
     r.define_rule(:match => '/xml', :metric => :rph, :type => :frequency, :limit => 60)
-    r.define_rule(:match => '/token', :limit => 1, :token => :id)
+    r.define_rule(:match => '/token', :limit => 1, :token => :id, :per_ip => false)
     r.define_rule(:match => '/fixed/rpm', :metric => :rpm, :type => :fixed, :limit => 1)
     r.define_rule(:match => '/fixed/rph', :metric => :rph, :type => :fixed, :limit => 1)
     r.define_rule(:match => '/fixed/rpd', :metric => :rpd, :type => :fixed, :limit => 1)
