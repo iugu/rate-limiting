@@ -42,7 +42,9 @@ Accepts aimed resource path or Regexp like '/resource' or "/resource/.*"
 
 **token**
 
-:ip - limit by IP
-
 :foo - limit by request parameter 'foo'
+
+**per_ip**
+
+Boolean, true = limit by IP
 
