@@ -5,11 +5,11 @@ require "rate-limiting/version"
 Gem::Specification.new do |s|
   s.name        = "rate-limiting"
   s.version     = Rate::Limiting::VERSION
-  s.authors     = ["alepaez"]
-  s.email       = ["alepaezseq@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.authors     = ["alepaez, pnegri"]
+  s.email       = ["alexandre@iugu.com.br"]
+  s.homepage    = "https://github.com/iugu/rate-limiting"
+  s.summary     = %q{Rack Rate-Limit Gem}
+  s.description = %q{Easy way to Rate Limit your Rack app}
 
   s.rubyforge_project = "rate-limiting"
 
