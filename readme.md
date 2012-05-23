@@ -1,6 +1,10 @@
 Rate Limiting
 ===============
 
+Rate Limiting is a rack middleware that rate-limit HTTP requests in many different ways. 
+It provides tools for creating rules which can rate-limit routes separately.
+
+
 
 How to use it
 ----------------
@@ -9,6 +13,8 @@ How to use it
 
 \# config/application.rb
 
+>     require "rate_limiting"
+>
 >     class Application < Rails::Application
 >
 >       config.middleware.use RateLimiting do |r|
