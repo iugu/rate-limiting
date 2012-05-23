@@ -11,7 +11,11 @@ How to use it
 
 **Adding to Rails 3.x**
 
-\# config/application.rb
+Gemfile
+
+>     gem 'rate-limiting'
+
+config/application.rb
 
 >     require "rate_limiting"
 >
@@ -19,11 +23,14 @@ How to use it
 >
 >       config.middleware.use RateLimiting do |r|
 >
+>         \# Add your rules here, ex:
+>
 >         r.define_rule( :match => '/resource', :type => :fixed, :metric => :rph, :limit => 300 )
 >
 >       end
 >
 >     end
+
 
 Rule Options
 ----------------
