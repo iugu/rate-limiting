@@ -23,7 +23,7 @@ config/application.rb
 >
 >       config.middleware.use RateLimiting do |r|
 >
->         \# Add your rules here, ex:
+>         # Add your rules here, ex:
 >
 >         r.define_rule( :match => '/resource', :type => :fixed, :metric => :rph, :limit => 300 )
 >
