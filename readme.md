@@ -67,7 +67,7 @@ Accepts aimed resource path or Regexp like '/resource' or "/resource/.*"
 
 Examples: 
 
-      r.define_rule(:match => "/frequency", :metric => :rph, :type => :frequency, :limit => 3)
+      r.define_rule(:match => "/resource", :metric => :rph, :type => :frequency, :limit => 3)
 
       => 1 request every 20 min
 
