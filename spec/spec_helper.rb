@@ -23,6 +23,8 @@ def app
     r.define_rule(:match => '/freq/rph', :metric => :rph, :type => :frequency, :limit => 60)
     r.define_rule(:match => '/freq/rpd', :metric => :rpd, :type => :frequency, :limit => 1440)
     r.define_rule(:match => '/header', :metric => :rph, :type => :frequency, :limit => 60)
+    r.define_rule(:match => '/per_match/.*', :metric => :rph, :type => :frequency, :limit => 60, :per_url => false)
+    r.define_rule(:match => '/per_url/.*', :metric => :rph, :type => :frequency, :limit => 60, :per_url => true)
   end 
 end
 

@@ -7,6 +7,7 @@ class Rule
       :type => :frequency,
       :limit => 100,
       :per_ip => true,
+      :per_url => false,
       :token => false
     }   
     @options = default_options.merge(options)
@@ -48,7 +49,7 @@ class Rule
   end
 
   def get_key(request)
-    key = request.path
+    key = (@options[:per_url] ? request.path : @options[:match].to_s)
     key = key + request.ip.to_s if @options[:per_ip]
     key = key + request.params[@options[:token].to_s] if @options[:token]
     key

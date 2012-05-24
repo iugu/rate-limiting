@@ -21,11 +21,11 @@ describe "response headers" do
     end
     
     it 'should have the right limit' do
-      last_response.header['x-RateLimit-Limit'].should == 1
+      last_response.header['x-RateLimit-Limit'].should == "1"
     end
 
     it 'should have the right remaining' do
-      last_response.header['x-RateLimit-Remaining'].should == 0
+      last_response.header['x-RateLimit-Remaining'].should == "0"
     end
 
   end
