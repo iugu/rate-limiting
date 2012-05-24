@@ -13,35 +13,35 @@ How to use it
 
 Gemfile
 
->     gem 'rate-limiting'
+     gem 'rate-limiting'
 
 config/application.rb
 
->     require "rate_limiting"
->
->     class Application < Rails::Application
->
->       config.middleware.use RateLimiting do |r|
->
->         # Add your rules here, ex:
->
->         r.define_rule( :match => '/resource', :type => :fixed, :metric => :rph, :limit => 300 )
->         r.define_rule(:match => '/html', :limit => 1)  
->         r.define_rule(:match => '/json', :metric => :rph, :type => :frequency, :limit => 60)
->         r.define_rule(:match => '/xml', :metric => :rph, :type => :frequency, :limit => 60)
->         r.define_rule(:match => '/token/ip', :limit => 1, :token => :id, :per_ip => true)
->         r.define_rule(:match => '/token', :limit => 1, :token => :id, :per_ip => false)
->         r.define_rule(:match => '/fixed/rpm', :metric => :rpm, :type => :fixed, :limit => 1)
->         r.define_rule(:match => '/fixed/rph', :metric => :rph, :type => :fixed, :limit => 1)
->         r.define_rule(:match => '/fixed/rpd', :metric => :rpd, :type => :fixed, :limit => 1)
->         r.define_rule(:match => '/freq/rpm', :metric => :rpm, :type => :frequency, :limit => 1)
->         r.define_rule(:match => '/freq/rph', :metric => :rph, :type => :frequency, :limit => 60)
->         r.define_rule(:match => '/freq/rpd', :metric => :rpd, :type => :frequency, :limit => 1440)
->         r.define_rule(:match => '/header', :metric => :rph, :type => :frequency, :limit => 60)
->
->       end
->
->     end
+     require "rate_limiting"
+
+     class Application < Rails::Application
+
+       config.middleware.use RateLimiting do |r|
+
+         # Add your rules here, ex:
+
+         r.define_rule( :match => '/resource', :type => :fixed, :metric => :rph, :limit => 300 )
+         r.define_rule(:match => '/html', :limit => 1)  
+         r.define_rule(:match => '/json', :metric => :rph, :type => :frequency, :limit => 60)
+         r.define_rule(:match => '/xml', :metric => :rph, :type => :frequency, :limit => 60)
+         r.define_rule(:match => '/token/ip', :limit => 1, :token => :id, :per_ip => true)
+         r.define_rule(:match => '/token', :limit => 1, :token => :id, :per_ip => false)
+         r.define_rule(:match => '/fixed/rpm', :metric => :rpm, :type => :fixed, :limit => 1)
+         r.define_rule(:match => '/fixed/rph', :metric => :rph, :type => :fixed, :limit => 1)
+         r.define_rule(:match => '/fixed/rpd', :metric => :rpd, :type => :fixed, :limit => 1)
+         r.define_rule(:match => '/freq/rpm', :metric => :rpm, :type => :frequency, :limit => 1)
+         r.define_rule(:match => '/freq/rph', :metric => :rph, :type => :frequency, :limit => 60)
+         r.define_rule(:match => '/freq/rpd', :metric => :rpd, :type => :frequency, :limit => 1440)
+         r.define_rule(:match => '/header', :metric => :rph, :type => :frequency, :limit => 60)
+
+       end
+
+     end
 
 
 Rule Options
