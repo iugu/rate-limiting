@@ -53,6 +53,17 @@ Accepts aimed resource path or Regexp like '/resource' or "/resource/.*"
 
 :fixed - limit requests per time
 
+Examples: 
+
+      r.define_rule(:match => "/frequency", :metric => :rph, :type => :frequency, :limit => 3)
+
+      => 1 request every 20 min
+
+      r.define_rule(:match => "/resource", :metric => :rph, :type => :fixed, :limit => 3)
+
+      => 3 request every 60 min
+
+
 **token**
 
 :foo - limit by request parameter 'foo'
