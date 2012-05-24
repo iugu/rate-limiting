@@ -91,7 +91,7 @@ If true, it will limit every url catch separately.
 
 Example:
 
-    r.define_rule(:match => '/resource/.*', :metric => :rph, :type => :fixed, :limit => 1, :per_url)
+    r.define_rule(:match => '/resource/.*', :metric => :rph, :type => :fixed, :limit => 1, :per_url => true)
 
 This example will let 1 request per hour for each url caught. ('/resource/url1', '/resource/url2', etc...)
 
