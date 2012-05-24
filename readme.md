@@ -47,11 +47,11 @@ config/application.rb
 Rule Options
 ----------------
 
-**match**
+### match
 
 Accepts aimed resource path or Regexp like '/resource' or "/resource/.*"
 
-**metric**
+### metric
 
 :rpd  -  Requests per Day
 
@@ -59,7 +59,7 @@ Accepts aimed resource path or Regexp like '/resource' or "/resource/.*"
 
 :rpm  -  Requests per Minute
 
-**type**
+### type
 
 :frequency  -  1 request per (time/limit)
 
@@ -76,11 +76,11 @@ Examples:
       => 3 request every 60 min
 
 
-**token**
+### token
 
 :foo - limit by request parameter 'foo'
 
-**per_ip**
+### per_ip
 
 Boolean, true = limit by IP
 
