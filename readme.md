@@ -84,3 +84,14 @@ Examples:
 
 Boolean, true = limit by IP
 
+### per_url
+
+Option used when the match option is a Regexp.
+If true, it will limit every url catch separately.
+
+Example:
+
+    r.define_rule(:match => '/resource/.*', :metric => :rph, :type => :fixed, :limit => 1, :per_url)
+
+This example will let 1 request per hour for each url caught. ('/resource/url1', '/resource/url2', etc...)
+
