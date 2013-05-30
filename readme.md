@@ -1,7 +1,7 @@
 Rate Limiting
 ===============
 
-Rate Limiting is a rack middleware that rate-limit HTTP requests in many different ways. 
+Rate Limiting is a rack middleware that rate-limit HTTP requests in many different ways.
 It provides tools for creating rules which can rate-limit routes separately.
 
 
@@ -26,7 +26,7 @@ config/application.rb
          # Add your rules here, ex:
 
          r.define_rule( :match => '/resource', :type => :fixed, :metric => :rph, :limit => 300 )
-         r.define_rule(:match => '/html', :limit => 1)  
+         r.define_rule(:match => '/html', :limit => 1)
          r.define_rule(:match => '/json', :metric => :rph, :type => :frequency, :limit => 60)
          r.define_rule(:match => '/xml', :metric => :rph, :type => :frequency, :limit => 60)
          r.define_rule(:match => '/token/ip', :limit => 1, :token => :id, :per_ip => true)
@@ -65,7 +65,7 @@ Accepts aimed resource path or Regexp like '/resource' or "/resource/.*"
 
 :fixed - limit requests per time
 
-Examples: 
+Examples:
 
       r.define_rule(:match => "/resource", :metric => :rph, :type => :frequency, :limit => 3)
 
@@ -94,4 +94,40 @@ Example:
     r.define_rule(:match => '/resource/.*', :metric => :rph, :type => :fixed, :limit => 1, :per_url => true)
 
 This example will let 1 request per hour for each url caught. ('/resource/url1', '/resource/url2', etc...)
+
+Limit Entry Storage
+----------------
+By default, the record store used to keep track of request matches is a hash stored as a class instance variable in app instance memory. For a distributed or concurrent application, this will not yeild desired results and should be changed to a different store.
+
+Set the cache by calling `set_cache` in the configuration block
+```
+r.set_store(Rails.cache)
+```
+
+Any traditional store will work, including Memcache, Redis, or an ActiveSupport::Cache::Store. Which is the best choice is an application specific decision, but a fast, shared store is highly recommended.
+
+A more robust cache configuration example:
+```
+store = case
+when ENV['REDIS_RATE_LIMIT_URL'].present?
+  # use a separate redis DB
+  Redis.new(url: ENV['REDIS_RATE_LIMIT_URL'])
+when ENV['REDIS_PROVIDER'].present?
+  # no separate redis DB available, share primary redis DB
+  Redis.new(url: ENV[ENV['REDIS_PROVIDER']])
+when (redis = Redis.new) && (redis.client.connect rescue false)
+  # a standard redis connection on port 6379 is available
+  redis
+when Rails.application.config.cache_store != :null_store
+  # no redis store is available, use the rails cache
+  Rails.cache
+else
+  # no distributed store available,
+  # a class instance variable will be used
+  nil
+end
+
+r.set_cache(store) if store.present?
+Rails.logger.debug "=> Rate Limiting Store Configured: #{r.cache}"
+```
 

@@ -1,7 +1,7 @@
 class Rule
 
   def initialize(options)
-    default_options = { 
+    default_options = {
       :match => /.*/,
       :metric => :rph,
       :type => :frequency,
@@ -9,9 +9,9 @@ class Rule
       :per_ip => true,
       :per_url => false,
       :token => false
-    }   
+    }
     @options = default_options.merge(options)
-  
+
   end
 
   def match
@@ -20,11 +20,11 @@ class Rule
 
   def limit
     (@options[:type] == :frequency ? 1 : @options[:limit])
-  end 
+  end
 
   def get_expiration
-    (Time.now + ( @options[:type] == :frequency ? get_frequency : get_fixed )).strftime("%d%m%y%H%M%S")
-  end 
+    (Time.now + ( @options[:type] == :frequency ? get_frequency : get_fixed ))
+  end
 
   def get_frequency
     case @options[:metric]
