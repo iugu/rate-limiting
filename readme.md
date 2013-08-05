@@ -25,7 +25,7 @@ config/application.rb
 
          # Add your rules here, ex:
 
-         r.define_rule( :match => '/resource', :type => :fixed, :metric => :rph, :limit => 300 )
+         r.define_rule(:match => '/resource', :type => :fixed, :metric => :rph, :limit => 300)
          r.define_rule(:match => '/html', :limit => 1)
          r.define_rule(:match => '/json', :metric => :rph, :type => :frequency, :limit => 60)
          r.define_rule(:match => '/xml', :metric => :rph, :type => :frequency, :limit => 60)
