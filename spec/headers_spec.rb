@@ -9,23 +9,23 @@ describe "response headers" do
     end
 
     it 'should have x-RateLimit-Limit' do
-      last_response.header.should include "x-RateLimit-Limit"
+      expect(last_response.header).to include "x-RateLimit-Limit"
     end
-  
+
     it 'should have x-RateLimit-Remaining' do
-      last_response.header.should include "x-RateLimit-Remaining"
+      expect(last_response.header).to include "x-RateLimit-Remaining"
     end
-  
+
     it 'should have x-RateLimit-Reset' do
-      last_response.header.should include "x-RateLimit-Reset"
+      expect(last_response.header).to include "x-RateLimit-Reset"
     end
-    
+
     it 'should have the right limit' do
-      last_response.header['x-RateLimit-Limit'].should == "1"
+      expect(last_response.header['x-RateLimit-Limit']).to eq "1"
     end
 
     it 'should have the right remaining' do
-      last_response.header['x-RateLimit-Remaining'].should == "0"
+      expect(last_response.header['x-RateLimit-Remaining']).to eq "0"
     end
 
   end
@@ -37,15 +37,15 @@ describe "response headers" do
     end
 
     it 'should have x-RateLimit-Limit' do
-      last_response.header.should_not include "x-RateLimit-Limit"
+      expect(last_response.header).not_to include "x-RateLimit-Limit"
     end
-    
+
     it 'should have x-RateLimit-Remaining' do
-      last_response.header.should_not include "x-RateLimit-Remaining"
+      expect(last_response.header).not_to include "x-RateLimit-Remaining"
     end
-  
+
     it 'should have x-RateLimit-Reset' do
-      last_response.header.should_not include "x-RateLimit-Reset"
+      expect(last_response.header).not_to include "x-RateLimit-Reset"
     end
 
   end
