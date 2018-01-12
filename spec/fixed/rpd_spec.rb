@@ -5,13 +5,12 @@ describe "Fixed/rpd rule request" do
 
   it 'should be allowed if not exceed limit' do
     get '/fixed/rpd', {}, {'HTTP_ACCEPT' => "text/html"}
-    last_response.body.should show_allowed_response
-  end 
+    expect(last_response.body).to show_allowed_response
+  end
 
   it 'should not be allowed if exceed limit' do
     2.times { get '/fixed/rpd', {}, {'HTTP_ACCEPT' => "text/html"} }
-    last_response.body.should show_not_allowed_response
-  end 
-  
-end
+    expect(last_response.body).to show_not_allowed_response
+  end
 
+end
