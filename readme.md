@@ -1,3 +1,7 @@
+[![Build status](https://img.shields.io/travis/iugu/rate-limiting.svg)](https://travis-ci.org/iugu/rate-limiting)
+[![Gem version](https://img.shields.io/gem/v/rate-limiting.svg)](https://rubygems.org/gems/rate-limiting)
+[![Downloads](https://img.shields.io/gem/dt/rate-limiting.svg)](https://rubygems.org/gems/rate-limiting)
+
 Rate Limiting
 ===============
 
