@@ -105,7 +105,7 @@ By default, the record store used to keep track of request matches is a hash sto
 
 Set the cache by calling `set_cache` in the configuration block
 ```
-r.set_store(Rails.cache)
+r.set_cache(Rails.cache)
 ```
 
 Any traditional store will work, including Memcache, Redis, or an ActiveSupport::Cache::Store. Which is the best choice is an application specific decision, but a fast, shared store is highly recommended.
