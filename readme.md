@@ -131,3 +131,7 @@ r.set_cache(store) if store.present?
 Rails.logger.debug "=> Rate Limiting Store Configured: #{r.cache}"
 ```
 
+Running Tests
+----------------
+
+bundle exec rspec spec
