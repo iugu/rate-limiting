@@ -8,6 +8,7 @@ class Rule
       limit: 100,
       per_ip: true,
       per_url: false,
+      verb: nil,
       token: false
     }
     @options = default_options.merge(options)
@@ -15,6 +16,22 @@ class Rule
 
   def match
     @options[:match].class == String ? Regexp.new(@options[:match] + "$") : @options[:match]
+  end
+
+  def match?(request)
+    request.path =~ match && verb_match?(request)
+  end
+
+  def verb_match?(request)
+    if verb
+      verb == request.env["REQUEST_METHOD"]
+    else
+      true
+    end
+  end
+
+  def verb
+    @options[:verb] ? @options[:verb].to_s.upcase : nil
   end
 
   def limit
@@ -49,6 +66,7 @@ class Rule
 
   def get_key(request)
     key = (@options[:per_url] ? request.path : @options[:match].to_s)
+    key += @options[:per_url] && @options[:verb] ? request.env["REQUEST_METHOD"] : ""
     key += request.ip.to_s if @options[:per_ip]
     key += request.params[@options[:token].to_s] if @options[:token]
     key
