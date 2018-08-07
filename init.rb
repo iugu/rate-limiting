@@ -1,1 +1,2 @@
-require 'rate_limiting'
+# frozen_string_literal: true
+require "rate_limiting"

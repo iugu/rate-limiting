@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
+# frozen_string_literal: true
+$LOAD_PATH.push File.expand_path("../lib", __FILE__)
 require "rate-limiting/version"
 
 Gem::Specification.new do |s|
@@ -8,14 +9,14 @@ Gem::Specification.new do |s|
   s.authors     = ["alepaez, pnegri"]
   s.email       = ["alexandre@iugu.com.br"]
   s.homepage    = "https://github.com/iugu/rate-limiting"
-  s.summary     = %q{Rack Rate-Limit Gem}
-  s.description = %q{Easy way to Rate Limit your Rack app}
+  s.summary     = "Rack Rate-Limit Gem"
+  s.description = "Easy way to Rate Limit your Rack app"
 
   s.rubyforge_project = "rate-limiting"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
@@ -25,5 +26,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec"
   s.add_development_dependency "rack-test"
   s.add_dependency "json"
-
 end
