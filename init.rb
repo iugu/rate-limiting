@@ -1,1 +1,0 @@
-require 'rate_limiting'
