@@ -25,7 +25,7 @@ class RateLimiting
   def rate_limit_exceeded(accept)
     case accept.gsub(/;.*/, "").split(',')[0]
     when "text/xml"         then message, type  = xml_error("403", "Rate Limit Exceeded"), "text/xml"
-    when "application/json" then  message, type  = ["Rate Limit Exceeded"].to_json, "application/json"
+    when "application/json" then  message, type  = ["Rate Limit Exceeded"], "application/json"
     else
       message, type  = ["Rate Limit Exceeded"], "text/html"
     end
